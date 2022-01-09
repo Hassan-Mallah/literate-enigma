@@ -20,9 +20,11 @@ app.config['MONGO_DBNAME'] = 'test'
 # connect to mongo db
 mongo = PyMongo(app)
 
+
 @app.route('/', methods=['GET'])
 def index():
     return 'Hello to pymongo flask api :)'
+
 
 @app.route('/framework', methods=['GET'])
 def get_all_frameworks():
@@ -30,7 +32,6 @@ def get_all_frameworks():
     framework = mongo.db.framework
 
     output = []
-
 
 
 if __name__ == '__main__':

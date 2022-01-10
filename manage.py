@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_pymongo import PyMongo
 import environ  # for .env
 from utils import *
@@ -31,7 +31,12 @@ def get_all_frameworks():
     # framework is collection name
     framework = mongo.db.framework
 
+    # get records and save them to a list of dicts
     output = []
+    for q in framework.find():
+        output.append({'name': q.name, 'language': q.language})
+
+    return jsonify({'result': output})
 
 
 if __name__ == '__main__':

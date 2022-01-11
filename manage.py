@@ -34,9 +34,25 @@ def get_all_frameworks():
     # get records and save them to a list of dicts
     output = []
     for q in framework.find():
-        output.append({'name': q.name, 'language': q.language})
+        output.append({'name': q['name'], 'language': q['language']})
 
     return jsonify({'result': output})
+
+@app.route('/framework/<name>', methods=['GET'])
+def get_one_framework(name):
+    framework = mongo.db.framework
+
+    q = framework.find_one({'name': name})
+    if q:
+        output = {
+            'name': q['name'],
+            'language': q['language']
+        }
+    else:
+        output = 'Not found'
+
+    return jsonify({'result': output})
+
 
 
 if __name__ == '__main__':

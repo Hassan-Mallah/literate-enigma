@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_pymongo import PyMongo
 import environ  # for .env
 from utils import *
@@ -38,6 +38,7 @@ def get_all_frameworks():
 
     return jsonify({'result': output})
 
+
 @app.route('/framework/<name>', methods=['GET'])
 def get_one_framework(name):
     framework = mongo.db.framework
@@ -53,6 +54,16 @@ def get_one_framework(name):
 
     return jsonify({'result': output})
 
+
+@app.route('/framework', methods=['POST'])
+def add_framework():
+    # e.g.  curl -X POST http://127.0.0.1:5000/framework -d '{"key1":"value1", "key2":"value2"}'  -H "Content-Type: application/json"
+
+    framework = mongo.db.framework
+
+    print(request.json)
+
+    return jsonify({})
 
 
 if __name__ == '__main__':

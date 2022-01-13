@@ -57,13 +57,24 @@ def get_one_framework(name):
 
 @app.route('/framework', methods=['POST'])
 def add_framework():
-    # e.g.  curl -X POST http://127.0.0.1:5000/framework -d '{"key1":"value1", "key2":"value2"}'  -H "Content-Type: application/json"
+    # e.g.  curl -X POST http://127.0.0.1:5000/framework -d '{"name":"value1", "language":"value2"}'  -H "Content-Type: application/json"
 
     framework = mongo.db.framework
 
-    print(request.json)
+    # get data from request
+    name = request.json['name']
+    language = request.json['language']
 
-    return jsonify({})
+    # insert one and save result
+    framework_id = framework.insert_one({'name': name, 'language': language})
+
+    # get record by id
+    new_framework = framework.find_one({'_id': framework_id.inserted_id})
+
+    # return inserted record
+    output = {'name': new_framework['name'], 'language': new_framework['language']}
+
+    return jsonify({'result': output})
 
 
 if __name__ == '__main__':

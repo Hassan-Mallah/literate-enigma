@@ -57,7 +57,7 @@ def get_one_framework(name):
 
 @app.route('/framework', methods=['POST'])
 def add_framework():
-    # e.g.  curl -X POST http://127.0.0.1:5000/framework -d '{"name":"value1", "language":"value2"}'  -H "Content-Type: application/json"
+    # e.g.  curl -X POST http://127.0.0.1:5000/framework -d '{"name":"php", "language":"laravel"}'  -H "Content-Type: application/json"
 
     framework = mongo.db.framework
 
